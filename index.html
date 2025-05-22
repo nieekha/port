@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/fav.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crafted by Nitesh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --background: #ffffff;
+        --text: #000000;
+        --transition: all 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --background: #1a1a1a;
+        --text: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        background-color: var(--background);
+        color: var(--text);
+        transition: var(--transition);
+        min-height: 100vh;
+      }
+
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Set initial theme before React loads
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          const newTheme = e.matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', newTheme);
+        }
+      });
+    </script>
+  </body>
+</html>
